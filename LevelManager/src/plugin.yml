@@ -1,0 +1,9 @@
+name: LevelManager
+main: com.littlegruz.levelmanager.LevelMain
+version: 0.1
+
+commands:
+
+permissions:
+
+depend: [MagicSpells]
