@@ -15,6 +15,7 @@ public class LevelMain extends JavaPlugin{
    private File levelFile;
    private HashMap<String, Integer> levelReqsMap;
    private HashMap<Location, String> shelfMap;
+   private FileConfiguration levelConfig;
    private int levelCap;
    
    public void onEnable(){
@@ -35,14 +36,16 @@ public class LevelMain extends JavaPlugin{
    public void loadLevels(){
       
       if(levelFile.exists()){
-         FileConfiguration levelConfig;
-         
          levelConfig = YamlConfiguration.loadConfiguration(levelFile);
          
          levelReqsMap.put("firenova", Integer.valueOf(levelConfig.getInt("firenova")));
+         
+         if((levelCap = levelConfig.getInt("max_level")) == 0)
+            levelCap = 20;
       }
       else{
          getLogger().info("No levels.yml file found");
+         levelCap = 20;
       }
    }
    
@@ -52,6 +55,10 @@ public class LevelMain extends JavaPlugin{
    
    public HashMap<Location, String> getShelfMap(){
       return shelfMap;
+   }
+   
+   public FileConfiguration getLevelConfig(){
+      return levelConfig;
    }
    
    public int getLevelCap(){

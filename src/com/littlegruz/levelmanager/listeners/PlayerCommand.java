@@ -43,7 +43,7 @@ public class PlayerCommand implements Listener{
             
             // TODO Store link between spell and book
             
-            // TODO Book is read with right click
+            // Note: Book and quill is read with right click, upon publishing it becomes a book
          }
          else if(message.contains("spellbook")){
             // TODO Get spell name
