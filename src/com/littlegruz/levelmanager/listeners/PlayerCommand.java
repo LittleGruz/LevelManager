@@ -46,7 +46,13 @@ public class PlayerCommand implements Listener{
             // Note: Book and quill is read with right click, upon publishing it becomes a book
          }
          else if(message.contains("spellbook")){
-            // TODO Get spell name
+            StringTokenizer st = new StringTokenizer(message, " ");
+            
+            st.nextToken(); // Contains "/cast"
+            st.nextToken(); // Contains "spellbook"
+            
+            // TODO Check if null occurs and if MagicSpells checks through other materials
+            plugin.getShelfMap().put(event.getPlayer().getTargetBlock(null, 20).getLocation(), st.nextToken());
             
             // TODO Get bookcase block location (check for block destroy)
             
