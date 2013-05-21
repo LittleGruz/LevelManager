@@ -1,5 +1,7 @@
 package com.littlegruz.levelmanager.listeners;
 
+import java.util.StringTokenizer;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -15,6 +17,18 @@ public class PlayerCommand implements Listener{
 
    @EventHandler
    public void onPlayerCommand(PlayerCommandPreprocessEvent event){
-      plugin.getServer().broadcastMessage("Triggered");
+      String message = event.getMessage();
+      
+      if(message.contains("cast") && message.contains("teach")){
+         String name, spell;
+         StringTokenizer st = new StringTokenizer(message, " ");
+         
+         st.nextToken();
+         st.nextToken();
+         name = st.nextToken();
+         spell = st.nextToken();
+         
+         
+      }
    }
 }

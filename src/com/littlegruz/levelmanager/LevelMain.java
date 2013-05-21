@@ -7,6 +7,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.littlegruz.levelmanager.listeners.PlayerCommand;
+
 public class LevelMain extends JavaPlugin{
    private File levelFile;
    private HashMap<String, Integer> levelReqs;
@@ -16,6 +18,8 @@ public class LevelMain extends JavaPlugin{
       // Create the directory if needed
       new File(getDataFolder().toString()).mkdir();
       levelFile = new File(getDataFolder().toString() + "/levels.yml");
+
+      getServer().getPluginManager().registerEvents(new PlayerCommand(this), this);
       
       loadLevels();
    }
