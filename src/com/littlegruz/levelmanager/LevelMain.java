@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.littlegruz.levelmanager.listeners.BlockBreak;
 import com.littlegruz.levelmanager.listeners.PlayerCommand;
 import com.littlegruz.levelmanager.listeners.PlayerInteract;
 
@@ -25,6 +26,7 @@ public class LevelMain extends JavaPlugin{
 
       getServer().getPluginManager().registerEvents(new PlayerCommand(this), this);
       getServer().getPluginManager().registerEvents(new PlayerInteract(this), this);
+      getServer().getPluginManager().registerEvents(new BlockBreak(this), this);
       
       loadLevels();
    }

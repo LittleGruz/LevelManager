@@ -22,18 +22,22 @@ public class PlayerCommand implements Listener{
       if(message.contains("cast")){
          if(message.contains("teach")){
             String name, spell;
+            int levelReq;
             StringTokenizer st = new StringTokenizer(message, " ");
             
-            st.nextToken();
-            st.nextToken();
+            st.nextToken(); // Contains "/cast"
+            st.nextToken(); // Contains "spellbook"
             name = st.nextToken();
             spell = st.nextToken();
             
-            // TODO Get required spell level
+            levelReq = plugin.getLevelConfig().getInt(spell);
             
-            // TODO Get player level
-            
-            // TODO Compare
+            if(plugin.getServer().getPlayer(name) != null){
+               if(levelReq > plugin.getServer().getPlayer(name).getLevel()){
+                  event.getPlayer().sendMessage("That players level is too low to learn this spell");
+                  event.setCancelled(true);
+               }
+            }
          }
          else if(message.contains("tome")){
             
