@@ -57,10 +57,6 @@ public class PlayerCommand implements Listener{
             
             // TODO Check if null occurs and if MagicSpells checks through other materials
             plugin.getShelfMap().put(event.getPlayer().getTargetBlock(null, 20).getLocation(), st.nextToken());
-            
-            // TODO Get bookcase block location (check for block destroy)
-            
-            // TODO Link block location with spell name
          }
       }
    }

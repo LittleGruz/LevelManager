@@ -37,5 +37,8 @@ public class PlayerInteract implements Listener{
       }
       
       // TODO Check for right clicking (reading) a spell book
+      
+      // TODO Perhaps use item meta data to find the right book?
+      event.getPlayer().getItemInHand().getItemMeta().hasLore();
    }
 }
