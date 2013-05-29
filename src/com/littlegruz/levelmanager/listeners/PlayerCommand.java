@@ -57,8 +57,11 @@ public class PlayerCommand implements Listener{
             st.nextToken(); // Contains "spellbook"
             
             // TODO Check if null occurs and if MagicSpells checks through other materials
-            if(st.hasMoreTokens())
-               plugin.getShelfMap().put(event.getPlayer().getTargetBlock(null, 20).getLocation(), st.nextToken());
+            if(st.hasMoreTokens()){
+               if(event.getPlayer().getTargetBlock(null, 20) != null){
+                  plugin.getShelfMap().put(event.getPlayer().getTargetBlock(null, 20).getLocation(), st.nextToken());
+               }
+            }
          }
       }
    }

@@ -28,6 +28,9 @@ public class LevelMain extends JavaPlugin{
       getServer().getPluginManager().registerEvents(new PlayerInteract(this), this);
       getServer().getPluginManager().registerEvents(new BlockBreak(this), this);
       
+      levelReqsMap = new HashMap<String, Integer>();
+      shelfMap = new HashMap<Location, String>();
+      
       loadLevels();
    }
    
