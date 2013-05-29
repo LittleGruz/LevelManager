@@ -2,6 +2,7 @@ package com.littlegruz.levelmanager.listeners;
 
 import java.util.StringTokenizer;
 
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -19,6 +20,7 @@ public class PlayerCommand implements Listener{
    @EventHandler
    public void onPlayerCommand(PlayerCommandPreprocessEvent event){
       String message = event.getMessage();
+      event.getPlayer().sendMessage(message);
       
       if(message.contains("cast")){
          if(message.contains("teach")){
@@ -26,8 +28,8 @@ public class PlayerCommand implements Listener{
             int levelReq;
             StringTokenizer st = new StringTokenizer(message, " ");
             
-            st.nextToken(); // Contains "/cast"
-            st.nextToken(); // Contains "spellbook"
+            event.getPlayer().sendMessage(st.nextToken()); // Contains "/cast"
+            event.getPlayer().sendMessage(st.nextToken()); // Contains "spellbook"
             name = st.nextToken();
             spell = st.nextToken();
             
@@ -41,20 +43,35 @@ public class PlayerCommand implements Listener{
             }
          }
          else if(message.contains("tome")){
+            StringTokenizer st = new StringTokenizer(message, " ");
+            String spell = "";
+            int level;
             
-            // TODO Get spell name
+            while(st.hasMoreTokens()){
+               spell = st.nextToken();
+               if(!spell.contains("cast") && !spell.contains("tome"))
+                  break;
+            }
             
-            // TODO Get book and quill held (find something unique)
+            event.getPlayer().sendMessage(spell);
             
-            // TODO Store link between spell and book
+            if(spell.compareTo("") != 0){
+               level = plugin.getLevelRequirementsMap().get(spell);
+               event.getPlayer().sendMessage(Integer.toString(level));
+               
+               if(event.getPlayer().getItemInHand().getType().compareTo(Material.BOOK_AND_QUILL) == 0){
+                  //TODO Durability can become the level required to use
+                  event.getPlayer().getItemInHand().setDurability((short)level);
+               }
+            }
             
-            // Note: Book and quill is read with right click, upon publishing it becomes a book
+            // Note: Book and quill is read with right click, durability is kept
          }
          else if(message.contains("spellbook")){
             StringTokenizer st = new StringTokenizer(message, " ");
             
-            st.nextToken(); // Contains "/cast"
-            st.nextToken(); // Contains "spellbook"
+            event.getPlayer().sendMessage(st.nextToken()); // Contains "/cast"
+            event.getPlayer().sendMessage(st.nextToken()); // Contains "spellbook"
             
             // TODO Check if null occurs and if MagicSpells checks through other materials
             if(st.hasMoreTokens()){
@@ -66,9 +83,10 @@ public class PlayerCommand implements Listener{
       }
    }
 
-   // TODO check if this fires when book and quill changes from the tome command
+   // TODO durability keeps
    @EventHandler
    public void onPlayerItemHeld(PlayerItemHeldEvent event){
-      event.getPlayer().sendMessage("change");
+      if(event.getPlayer().getItemInHand().getDurability() == 0)
+         event.getPlayer().sendMessage("Same");
    }
 }

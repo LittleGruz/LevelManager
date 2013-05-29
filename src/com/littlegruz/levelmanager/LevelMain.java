@@ -1,6 +1,7 @@
 package com.littlegruz.levelmanager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.bukkit.Location;
@@ -131,6 +132,11 @@ public class LevelMain extends JavaPlugin{
       else{
          getLogger().info("No levels.yml file found");
          levelCap = 20;
+         try{
+            levelFile.createNewFile();
+         } catch(IOException e){
+            getLogger().warning("Error creating a levels.yml file");
+         }
       }
    }
    
