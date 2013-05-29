@@ -3,6 +3,9 @@ main: com.littlegruz.levelmanager.LevelMain
 version: 0.1
 
 commands:
+   spelllevel:
+      description: Sets or changes level requirement for a spell
+      usage: /spelllevel <spell_name> <spell_level>
 
 permissions:
 

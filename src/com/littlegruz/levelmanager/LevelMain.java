@@ -9,13 +9,14 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.littlegruz.levelmanager.commands.LevelRequirements;
 import com.littlegruz.levelmanager.listeners.BlockBreak;
 import com.littlegruz.levelmanager.listeners.PlayerCommand;
 import com.littlegruz.levelmanager.listeners.PlayerInteract;
 
 public class LevelMain extends JavaPlugin{
    private File levelFile;
-   private HashMap<String, Integer> levelReqsMap;
+   //private HashMap<String, Integer> levelReqsMap;
    private HashMap<Location, String> shelfMap;
    private FileConfiguration levelConfig;
    private int levelCap;
@@ -29,14 +30,16 @@ public class LevelMain extends JavaPlugin{
       getServer().getPluginManager().registerEvents(new PlayerInteract(this), this);
       getServer().getPluginManager().registerEvents(new BlockBreak(this), this);
       
-      levelReqsMap = new HashMap<String, Integer>();
+      getCommand("spelllevel").setExecutor(new LevelRequirements(this));
+      
+      //levelReqsMap = new HashMap<String, Integer>();
       shelfMap = new HashMap<Location, String>();
       
       loadLevels();
    }
    
    public void onDisable(){
-      
+      saveLevelConfig();
    }
    
    public void loadLevels(){
@@ -46,7 +49,7 @@ public class LevelMain extends JavaPlugin{
          try{
             levelFile.createNewFile();
          } catch(IOException e){
-            getLogger().warning("Error creating a levels.yml file");
+            getLogger().warning("Error creating levels.yml file");
          }
       }
       
@@ -144,6 +147,14 @@ public class LevelMain extends JavaPlugin{
    
    public FileConfiguration getLevelConfig(){
       return levelConfig;
+   }
+   
+   public void saveLevelConfig(){
+      try{
+         levelConfig.save(levelFile);
+      } catch(IOException e){
+         getLogger().warning("Error saving level.yml file");
+      }
    }
    
    public int getLevelCap(){
