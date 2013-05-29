@@ -18,14 +18,16 @@ public class LevelRequirements implements CommandExecutor{
          String commandLabel, String[] args){
       if(cmd.getName().compareToIgnoreCase("spelllevel") == 0){
          if(args.length == 2){
-            plugin.getLevelConfig().set(args[0], args[1]);
+            try{
+            plugin.getLevelConfig().set(args[0], Integer.parseInt(args[1]));
             
-            if(plugin.getLevelConfig().get(args[0]) != null)
-               sender.sendMessage("Spell level requirement changed");
-            else
-               sender.sendMessage("Spell level requirement created");
-            
+            sender.sendMessage("Spell \"" + args[0] + "\" level requirement is now " + args[1]);
             plugin.saveLevelConfig();
+            
+            return true;
+            }catch(NumberFormatException e){
+               sender.sendMessage("Not a valid number");
+            }
          }
          else
             sender.sendMessage("Wrong number of arguments");
