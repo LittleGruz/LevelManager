@@ -55,7 +55,7 @@ public class PlayerCommand implements Listener{
             event.getPlayer().sendMessage(spell);
             
             if(spell.compareTo("") != 0){
-               level = plugin.getLevelRequirementsMap().get(spell);
+               level = plugin.getLevelConfig().getInt(spell);
                
                if(event.getPlayer().getItemInHand().getType().compareTo(Material.BOOK_AND_QUILL) == 0){
                   /* Setting the durability of the book to be the level requirement of the spell */

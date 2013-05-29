@@ -1,4 +1,4 @@
-name: LevelManager
+name: SpellLevelManager
 main: com.littlegruz.levelmanager.LevelMain
 version: 0.1
 

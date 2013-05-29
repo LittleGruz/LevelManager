@@ -53,7 +53,7 @@ public class LevelMain extends JavaPlugin{
       levelConfig = YamlConfiguration.loadConfiguration(levelFile);
 
       // Instant spells
-      levelReqsMap.put("confusion", Integer.valueOf(levelConfig.getInt("confusion")));
+      /*levelReqsMap.put("confusion", Integer.valueOf(levelConfig.getInt("confusion")));
       levelReqsMap.put("conjure", Integer.valueOf(levelConfig.getInt("conjure")));
       levelReqsMap.put("dowse", Integer.valueOf(levelConfig.getInt("dowse")));
       levelReqsMap.put("enderchest", Integer.valueOf(levelConfig.getInt("enderchest")));
@@ -131,15 +131,11 @@ public class LevelMain extends JavaPlugin{
       
       // Multi spells
       levelReqsMap.put("zeus", Integer.valueOf(levelConfig.getInt("zeus")));
-      levelReqsMap.put("smite", Integer.valueOf(levelConfig.getInt("smite")));
+      levelReqsMap.put("smite", Integer.valueOf(levelConfig.getInt("smite")));*/
       
-      // Set level cap to 20 if there is no cap set
+      /* Set level cap to 20 if there is no cap set */
       if((levelCap = levelConfig.getInt("max_level")) == 0)
          levelCap = 20;
-   }
-   
-   public HashMap<String, Integer> getLevelRequirementsMap(){
-      return levelReqsMap;
    }
    
    public HashMap<Location, String> getShelfMap(){
