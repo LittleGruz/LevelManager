@@ -62,8 +62,6 @@ public class PlayerCommand implements Listener{
                   event.getPlayer().getItemInHand().setDurability((short)level);
                }
             }
-            
-            // Note: Book and quill is read with right click, durability is kept
          }
          else if(message.contains("spellbook")){
             StringTokenizer st = new StringTokenizer(message, " ");

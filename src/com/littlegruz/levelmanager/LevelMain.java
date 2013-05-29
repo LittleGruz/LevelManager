@@ -29,8 +29,9 @@ public class LevelMain extends JavaPlugin{
       getServer().getPluginManager().registerEvents(new PlayerCommand(this), this);
       getServer().getPluginManager().registerEvents(new PlayerInteract(this), this);
       getServer().getPluginManager().registerEvents(new BlockBreak(this), this);
-      
+
       getCommand("spelllevel").setExecutor(new LevelRequirements(this));
+      getCommand("levelcap").setExecutor(new LevelRequirements(this));
       
       //levelReqsMap = new HashMap<String, Integer>();
       shelfMap = new HashMap<Location, String>();
@@ -137,8 +138,12 @@ public class LevelMain extends JavaPlugin{
       levelReqsMap.put("smite", Integer.valueOf(levelConfig.getInt("smite")));*/
       
       /* Set level cap to 20 if there is no cap set */
-      if((levelCap = levelConfig.getInt("max_level")) == 0)
+      if((levelCap = levelConfig.getInt("max_level")) == 0){
+         getLogger().info("No level cap set. Default cap is 20");
          levelCap = 20;
+         levelConfig.set("max_level", levelCap);
+         saveLevelConfig();
+      }
    }
    
    public HashMap<Location, String> getShelfMap(){

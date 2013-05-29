@@ -32,6 +32,22 @@ public class LevelRequirements implements CommandExecutor{
          else
             sender.sendMessage("Wrong number of arguments");
       }
+      else if(cmd.getName().compareToIgnoreCase("levelcap") == 0){
+         if(args.length == 1){
+            try{
+            plugin.getLevelConfig().set("max_level", Integer.parseInt(args[0]));
+            
+            sender.sendMessage("Level cap is now " + args[0]);
+            plugin.saveLevelConfig();
+            
+            return true;
+            }catch(NumberFormatException e){
+               sender.sendMessage("Not a valid number");
+            }
+         }
+         else
+            sender.sendMessage("Wrong number of arguments");
+      }
       return false;
    }
 
