@@ -6,7 +6,6 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
 
 import com.littlegruz.levelmanager.LevelMain;
 
@@ -57,10 +56,9 @@ public class PlayerCommand implements Listener{
             
             if(spell.compareTo("") != 0){
                level = plugin.getLevelRequirementsMap().get(spell);
-               event.getPlayer().sendMessage(Integer.toString(level));
                
                if(event.getPlayer().getItemInHand().getType().compareTo(Material.BOOK_AND_QUILL) == 0){
-                  //TODO Durability can become the level required to use
+                  /* Setting the durability of the book to be the level requirement of the spell */
                   event.getPlayer().getItemInHand().setDurability((short)level);
                }
             }
@@ -81,12 +79,5 @@ public class PlayerCommand implements Listener{
             }
          }
       }
-   }
-
-   // TODO durability keeps
-   @EventHandler
-   public void onPlayerItemHeld(PlayerItemHeldEvent event){
-      if(event.getPlayer().getItemInHand().getDurability() == 0)
-         event.getPlayer().sendMessage("Same");
    }
 }

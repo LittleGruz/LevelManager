@@ -18,6 +18,7 @@ public class BlockBreak implements Listener{
       // Remove bookshelf from HashMap if it is destroyed
       if(plugin.getShelfMap().get(event.getBlock().getLocation()) != null){
          plugin.getShelfMap().remove(event.getBlock().getLocation());
+         event.getPlayer().sendMessage("Spellbook destoryed");
       }
    }
 }

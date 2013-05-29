@@ -18,7 +18,7 @@ public class PlayerInteract implements Listener{
    @EventHandler
    public void onPlayerInteract(PlayerInteractEvent event){
       if(event.getClickedBlock() != null){
-         // Check if the right clicked block is a bookshelf
+         /* Check if the right clicked block is a bookshelf */
          if(event.getClickedBlock().getType().compareTo(Material.BOOKSHELF) == 0
                && event.getAction().compareTo(Action.RIGHT_CLICK_BLOCK) == 0){
             // TODO Can the action replace the null clickedblock check?
@@ -36,9 +36,12 @@ public class PlayerInteract implements Listener{
          }
       }
       
-      // TODO Check for right clicking (reading) a spell book
-      
-      // TODO Perhaps use item meta data to find the right book?
-      event.getPlayer().getItemInHand().getItemMeta().hasLore();
+      /* Check book durability (level cap) if the player tries to use it */
+      if(event.getPlayer().getItemInHand().getType().compareTo(Material.BOOK_AND_QUILL) == 0){
+         if(event.getPlayer().getItemInHand().getDurability() > event.getPlayer().getLevel()){
+            event.getPlayer().sendMessage("Your level is too low to use this book");
+            event.setCancelled(true);
+         }
+      }
    }
 }
