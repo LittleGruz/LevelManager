@@ -14,5 +14,3 @@ permissions:
    manager.commands:
       description: Editing level requirements/caps
       default: op
-
-depend: [MagicSpells]
