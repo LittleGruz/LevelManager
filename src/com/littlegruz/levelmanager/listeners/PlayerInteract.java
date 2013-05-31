@@ -21,7 +21,7 @@ public class PlayerInteract implements Listener{
          /* Check if the right clicked block is a bookshelf */
          if(event.getClickedBlock().getType().compareTo(Material.BOOKSHELF) == 0
                && event.getAction().compareTo(Action.RIGHT_CLICK_BLOCK) == 0){
-            // TODO Can the action replace the null clickedblock check?
+            // TODO Should the action replace the null clickedblock check?
             /* If the bookshelf has a spell, then determine if the player has a
              * high enough level to learn it */
             if(plugin.getShelfMap().get(event.getClickedBlock().getLocation()) != null){
