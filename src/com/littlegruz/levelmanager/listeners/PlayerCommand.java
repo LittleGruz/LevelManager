@@ -33,7 +33,10 @@ public class PlayerCommand implements Listener{
             spell = st.nextToken();
             
             if(plugin.getServer().getPlayer(name) != null){
-               levelReq = plugin.getLevelConfig().getInt(spell);
+               if(plugin.getLevelConfig().get(spell) != null)
+                  levelReq = plugin.getLevelConfig().getInt(spell);
+               else
+                  levelReq = plugin.getLevelCap();
                
                if(levelReq > plugin.getServer().getPlayer(name).getLevel()){
                   event.getPlayer().sendMessage("That players level is too low to learn this spell");
@@ -44,7 +47,7 @@ public class PlayerCommand implements Listener{
          else if(message.contains("tome")){
             StringTokenizer st = new StringTokenizer(message, " ");
             String spell = "";
-            int level;
+            int levelReq;
             
             while(st.hasMoreTokens()){
                spell = st.nextToken();
@@ -55,11 +58,14 @@ public class PlayerCommand implements Listener{
             event.getPlayer().sendMessage(spell);
             
             if(spell.compareTo("") != 0){
-               level = plugin.getLevelConfig().getInt(spell);
+               if(plugin.getLevelConfig().get(spell) != null)
+                  levelReq = plugin.getLevelConfig().getInt(spell);
+               else
+                  levelReq = plugin.getLevelCap();
                
                if(event.getPlayer().getItemInHand().getType().compareTo(Material.BOOK_AND_QUILL) == 0){
                   /* Setting the durability of the book to be the level requirement of the spell */
-                  event.getPlayer().getItemInHand().setDurability((short)level);
+                  event.getPlayer().getItemInHand().setDurability((short)levelReq);
                }
             }
          }

@@ -25,8 +25,13 @@ public class PlayerInteract implements Listener{
             /* If the bookshelf has a spell, then determine if the player has a
              * high enough level to learn it */
             if(plugin.getShelfMap().get(event.getClickedBlock().getLocation()) != null){
+               int levelReq;
                String spell = plugin.getShelfMap().get(event.getClickedBlock().getLocation());
-               int levelReq = plugin.getLevelConfig().getInt(spell);
+               
+               if(plugin.getLevelConfig().get(spell) != null)
+                  levelReq = plugin.getLevelConfig().getInt(spell);
+               else
+                  levelReq = plugin.getLevelCap();
                
                if(levelReq > event.getPlayer().getLevel()){
                   event.getPlayer().sendMessage("Your level is too low to learn this spell");
