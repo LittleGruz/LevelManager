@@ -41,11 +41,6 @@ public class PlayerInteract implements Listener{
          }
       }
       
-      if(event.getPlayer().getItemInHand().getType().compareTo(Material.DIAMOND) == 0)
-         event.getPlayer().setLevel(event.getPlayer().getLevel() + 1);
-      else if(event.getPlayer().getItemInHand().getType().compareTo(Material.SAND) == 0)
-         event.getPlayer().setLevel(8);
-      
       /* Check book durability (level cap) if the player tries to use it */
       if(event.getPlayer().getItemInHand().getType().compareTo(Material.BOOK_AND_QUILL) == 0){
          if(event.getPlayer().getItemInHand().getDurability() > event.getPlayer().getLevel()){

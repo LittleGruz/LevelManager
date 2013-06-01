@@ -1,8 +1,13 @@
 package com.littlegruz.levelmanager;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,7 +22,7 @@ import com.littlegruz.levelmanager.listeners.PlayerPickupItem;
 
 public class LevelMain extends JavaPlugin{
    private File levelFile;
-   //private HashMap<String, Integer> levelReqsMap;
+   private File shelfFile;
    private HashMap<Location, String> shelfMap;
    private FileConfiguration levelConfig;
    private int levelCap;
@@ -26,6 +31,7 @@ public class LevelMain extends JavaPlugin{
       // Create the directory if needed
       new File(getDataFolder().toString()).mkdir();
       levelFile = new File(getDataFolder().toString() + "/levels.yml");
+      shelfFile = new File(getDataFolder().toString() + "/spellbooks.dat");
 
       getServer().getPluginManager().registerEvents(new PlayerCommand(this), this);
       getServer().getPluginManager().registerEvents(new PlayerInteract(this), this);
@@ -80,6 +86,27 @@ public class LevelMain extends JavaPlugin{
          levelConfig.save(levelFile);
       } catch(IOException e){
          getLogger().warning("Error saving level.yml file");
+      }
+   }
+   
+   public void saveBookshelfLocations(){
+      BufferedWriter bw;
+
+      try{
+         bw = new BufferedWriter(new FileWriter(shelfFile));
+         Iterator<Map.Entry<Location, String>> it = shelfMap.entrySet().iterator();
+         
+         while(it.hasNext()){
+            Entry<Location, String> shelf = it.next();
+            bw.write(shelf.getKey().getWorld().getName() + " "
+                  + Integer.toString(shelf.getKey().getBlockX()) + " "
+                  + Integer.toString(shelf.getKey().getBlockY()) + " "
+                  + Integer.toString(shelf.getKey().getBlockZ()) + " "
+                  + shelf.getValue() + "\n");
+         }
+         bw.close();
+      }catch(IOException e){
+         getLogger().info("Error saving spellbook block locations");
       }
    }
    
