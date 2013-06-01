@@ -19,7 +19,6 @@ public class PlayerCommand implements Listener{
    @EventHandler
    public void onPlayerCommand(PlayerCommandPreprocessEvent event){
       String message = event.getMessage();
-      event.getPlayer().sendMessage(message);
       
       if(message.contains("cast")){
          if(message.contains("teach")){
@@ -27,8 +26,8 @@ public class PlayerCommand implements Listener{
             int levelReq;
             StringTokenizer st = new StringTokenizer(message, " ");
             
-            event.getPlayer().sendMessage(st.nextToken()); // Contains "/cast"
-            event.getPlayer().sendMessage(st.nextToken()); // Contains "spellbook"
+            st.nextToken(); // Contains "/cast"
+            st.nextToken(); // Contains "spellbook"
             name = st.nextToken();
             spell = st.nextToken();
             
@@ -55,8 +54,6 @@ public class PlayerCommand implements Listener{
                   break;
             }
             
-            event.getPlayer().sendMessage(spell);
-            
             if(spell.compareTo("") != 0){
                if(plugin.getLevelConfig().get(spell) != null)
                   levelReq = plugin.getLevelConfig().getInt(spell);
@@ -72,10 +69,9 @@ public class PlayerCommand implements Listener{
          else if(message.contains("spellbook")){
             StringTokenizer st = new StringTokenizer(message, " ");
             
-            event.getPlayer().sendMessage(st.nextToken()); // Contains "/cast"
-            event.getPlayer().sendMessage(st.nextToken()); // Contains "spellbook"
+            st.nextToken(); // Contains "/cast"
+            st.nextToken(); // Contains "spellbook"
             
-            // TODO Check if null occurs and if MagicSpells checks through other materials
             if(st.hasMoreTokens()){
                if(event.getPlayer().getTargetBlock(null, 20) != null){
                   plugin.getShelfMap().put(event.getPlayer().getTargetBlock(null, 20).getLocation(), st.nextToken());

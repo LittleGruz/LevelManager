@@ -13,6 +13,7 @@ import com.littlegruz.levelmanager.commands.LevelRequirements;
 import com.littlegruz.levelmanager.listeners.BlockBreak;
 import com.littlegruz.levelmanager.listeners.PlayerCommand;
 import com.littlegruz.levelmanager.listeners.PlayerInteract;
+import com.littlegruz.levelmanager.listeners.PlayerPickupItem;
 
 public class LevelMain extends JavaPlugin{
    private File levelFile;
@@ -29,6 +30,7 @@ public class LevelMain extends JavaPlugin{
       getServer().getPluginManager().registerEvents(new PlayerCommand(this), this);
       getServer().getPluginManager().registerEvents(new PlayerInteract(this), this);
       getServer().getPluginManager().registerEvents(new BlockBreak(this), this);
+      getServer().getPluginManager().registerEvents(new PlayerPickupItem(), this);
 
       getCommand("spelllevel").setExecutor(new LevelRequirements(this));
       getCommand("levelcap").setExecutor(new LevelRequirements(this));
