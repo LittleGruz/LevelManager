@@ -1,12 +1,16 @@
 package com.littlegruz.levelmanager;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
 import org.bukkit.Location;
@@ -45,10 +49,12 @@ public class LevelMain extends JavaPlugin{
       shelfMap = new HashMap<Location, String>();
       
       loadLevels();
+      loadBookshelfLocations();
    }
    
    public void onDisable(){
       saveLevelConfig();
+      saveBookshelfLocations();
    }
    
    public void loadLevels(){
@@ -70,6 +76,32 @@ public class LevelMain extends JavaPlugin{
          levelCap = 20;
          levelConfig.set("max_level", levelCap);
          saveLevelConfig();
+      }
+   }
+   
+   public void loadBookshelfLocations(){
+      BufferedReader br;
+      String input;
+      StringTokenizer st;
+
+      try{
+         Location loc;
+         br = new BufferedReader(new FileReader(shelfFile));
+         
+         while((input = br.readLine()) != null){
+            st = new StringTokenizer(input, " ");
+            loc = new Location(getServer().getWorld(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+            
+            shelfMap.put(loc, st.nextToken());
+         }
+         br.close();
+         
+      }catch(FileNotFoundException e){
+         getLogger().info("No original spellbook location file found");
+      }catch(IOException e){
+         getLogger().info("Error reading spellbook location file");
+      }catch(Exception e){
+         getLogger().info("Incorrectly formatted spellbook location file");
       }
    }
    
